@@ -1,0 +1,12 @@
+{
+  "item.gremlinpets.alexandrite": "Alexandrite",
+  "item.gremlinpets.raw_alexandrite": "Raw Alexandrite",
+
+  "item.gremlinpets.rhino_spawn_egg": "Rhino Spawn Egg",
+  "item.gremlinpets.rat_spawn_egg": "Rat Spawn Egg",
+
+  "block.gremlinpets.alexandrite_block": "Block of Alexandrite",
+  "block.gremlinpets.raw_alexandrite_block": "Block of Raw Alexandrite",
+
+  "creativetab.gremlin_pets_tab": "Gremlin Pets Tab"
+}

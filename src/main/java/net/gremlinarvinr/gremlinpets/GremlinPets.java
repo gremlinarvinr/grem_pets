@@ -1,11 +1,18 @@
 package net.gremlinarvinr.gremlinpets;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
+import net.gremlinarvinr.gremlinpets.block.ModBlocks;
+import net.gremlinarvinr.gremlinpets.entity.ModEntities;
+import net.gremlinarvinr.gremlinpets.entity.client.RatRenderer;
+import net.gremlinarvinr.gremlinpets.entity.client.RhinoRenderer;
+import net.gremlinarvinr.gremlinpets.item.ModCreativeModeTabs;
+import net.gremlinarvinr.gremlinpets.item.ModItems;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -20,24 +27,25 @@ import org.slf4j.Logger;
 @Mod(GremlinPets.MOD_ID)
 public class GremlinPets
 {
-    public static final String MOD_ID = "gremlin_pets";
+    public static final String MOD_ID = "gremlinpets";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public GremlinPets() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
+        ModCreativeModeTabs.register(modEventBus);
+
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModEntities.register((modEventBus));
+
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
-        modEventBus.addListener(this::addCreative);
+        // modEventBus.addListener(this::addCreative);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
 
     }
 
@@ -52,7 +60,10 @@ public class GremlinPets
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
+            event.enqueueWork(() -> {
+                EntityRenderers.register(ModEntities.RHINO.get(), RhinoRenderer::new);
+                EntityRenderers.register(ModEntities.RAT.get(), RatRenderer::new);
+            });
         }
     }
 }

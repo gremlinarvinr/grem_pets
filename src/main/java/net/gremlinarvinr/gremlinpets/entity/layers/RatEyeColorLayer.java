@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class RatEyeColorLayer extends RenderLayer<RatEntity, RatModel<RatEntity>> {
     private static final Map<RatEyeColor, ResourceLocation> LOCATION_BY_EYE_COLORS = Util.make(Maps.newEnumMap(RatEyeColor.class), map -> {
-        map.put(RatEyeColor.DEFAULT, null);
+        map.put(RatEyeColor.DEFAULT, (ResourceLocation) null);
         map.put(RatEyeColor.BLACK, new ResourceLocation("textures/entity/rat/eyes/black_eyes.png"));
         map.put(RatEyeColor.PINK, new ResourceLocation("textures/entity/rat/eyes/pink_eyes.png"));
     });
@@ -31,6 +31,7 @@ public class RatEyeColorLayer extends RenderLayer<RatEntity, RatModel<RatEntity>
     public void render(PoseStack poseStack, MultiBufferSource pBuffer, int pPackedLight, RatEntity entity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         ResourceLocation resourceLocation = LOCATION_BY_EYE_COLORS.get(entity.getRatEyeColor());
         if (resourceLocation != null && !entity.isInvisible()) {
+            // tried cutout instead of translucent ,,, didnt fix RIP
             VertexConsumer vertexConsumer = pBuffer.getBuffer(RenderType.entityTranslucent(resourceLocation));
             this.getParentModel().renderToBuffer(poseStack, vertexConsumer, pPackedLight, LivingEntityRenderer.getOverlayCoords(entity,0.0f), 1.0f, 1.0f, 1.0f, 1.0f);
         }

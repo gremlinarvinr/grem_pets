@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public final class RatRenderer extends AbstractGremRenderer<RatEntity, RatModel<RatEntity>> {
+public final class RatRenderer extends MobRenderer<RatEntity, RatModel<RatEntity>> {
     private static final Map<RatVariant, ResourceLocation> LOCATION_BY_VARIANT =
             Util.make(Maps.newEnumMap(RatVariant.class), map -> {
                 map.put(RatVariant.DEFAULT,
